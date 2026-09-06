@@ -1,0 +1,566 @@
+/**
+ * Lightweight UI chrome dictionary (English / हिन्दी).
+ *
+ * Scope: navigation, actions, headings, statuses and short labels that make up
+ * the app shell. Long-form body copy stays English so the translation surface
+ * stays small and reviewable. The chosen language persists in localStorage.
+ * Keys may contain `{n}` placeholders filled by `translate(lang, key, vars)`.
+ */
+
+export type Lang = 'en' | 'hi';
+
+export const LANG_LABEL: Record<Lang, string> = {
+  en: 'English',
+  hi: 'हिन्दी'
+};
+
+type Dict = Record<string, { en: string; hi: string }>;
+
+export const STRINGS: Dict = {
+  // Roles
+  'role.customer': { en: 'Client', hi: 'ग्राहक' },
+  'role.worker': { en: 'Worker', hi: 'कारीगर' },
+  'role.admin': { en: 'Admin', hi: 'प्रशासक' },
+
+  // Top navigation — customer
+  'nav.overview': { en: 'Home', hi: 'होम' },
+  'nav.findWorker': { en: 'Find a Worker', hi: 'कारीगर खोजें' },
+  'nav.bookings': { en: 'My Bookings', hi: 'मेरी बुकिंग' },
+  'nav.bookTrade': { en: 'Book a Worker', hi: 'कारीगर बुक करें' },
+
+  // Top navigation — worker
+  'nav.dispatchDesk': { en: 'My Jobs', hi: 'मेरे काम' },
+  'nav.activeJob': { en: 'Active Job', hi: 'चालू काम' },
+  'nav.publicProfile': { en: 'Public Profile', hi: 'सार्वजनिक प्रोफ़ाइल' },
+  'nav.emergency': { en: 'Emergency Ping', hi: 'आपात संकेत' },
+
+  // Top navigation — admin
+  'nav.federationCouncil': { en: 'Federation Council', hi: 'फ़ेडरेशन परिषद' },
+  'nav.societyOps': { en: 'Society Operations', hi: 'सोसायटी कामकाज' },
+  'nav.accreditations': { en: 'Verify Workers', hi: 'कारीगर सत्यापन' },
+  'nav.profile': { en: 'Profile', hi: 'प्रोफ़ाइल' },
+
+  // Bottom navigation
+  'bottom.home': { en: 'Home', hi: 'होम' },
+  'bottom.book': { en: 'Book', hi: 'बुक' },
+  'bottom.bookings': { en: 'Bookings', hi: 'बुकिंग' },
+  'bottom.profile': { en: 'Profile', hi: 'प्रोफ़ाइल' },
+  'bottom.dispatch': { en: 'Jobs', hi: 'काम' },
+  'bottom.onSite': { en: 'On Site', hi: 'साइट पर' },
+  'bottom.council': { en: 'Council', hi: 'परिषद' },
+  'bottom.societies': { en: 'Societies', hi: 'सोसायटी' },
+  'bottom.approvals': { en: 'Approvals', hi: 'मंज़ूरी' },
+
+  // Landing CTAs
+  'landing.findWorker': { en: 'Find a Worker', hi: 'कारीगर खोजें' },
+  'landing.apply': { en: 'Apply to Join', hi: 'आवेदन करें' },
+  'landing.exploreTrades': { en: 'Explore Trades', hi: 'काम देखें' },
+  'landing.applyWorker': { en: 'Apply as a Worker', hi: 'कारीगर बनें' },
+
+  // Common actions
+  'common.viewProfile': { en: 'View Profile', hi: 'प्रोफ़ाइल देखें' },
+  'common.bookService': { en: 'Book Service', hi: 'सेवा बुक करें' },
+  'common.decline': { en: 'Decline', hi: 'अस्वीकार करें' },
+  'common.approve': { en: 'Approve', hi: 'मंज़ूर करें' },
+  'common.reject': { en: 'Reject', hi: 'अस्वीकार करें' },
+  'common.review': { en: 'Review', hi: 'समीक्षा' },
+
+  // Booking statuses (chips / badges)
+  'status.requested': { en: 'Requested', hi: 'अनुरोधित' },
+  'status.accepted': { en: 'Accepted', hi: 'स्वीकृत' },
+  'status.en_route': { en: 'En Route', hi: 'रास्ते में' },
+  'status.in_progress': { en: 'In Progress', hi: 'प्रगति पर' },
+  'status.completed': { en: 'Completed', hi: 'पूर्ण' },
+  'status.cancelled': { en: 'Cancelled', hi: 'रद्द' },
+
+  // Worker dashboard
+  'worker.greeting': { en: 'Good morning, {n}.', hi: 'सुप्रभात, {n}।' },
+  'worker.assignmentsLine': {
+    en: 'You have {n} assignments scheduled for today • Society Member',
+    hi: 'आज के लिए आपके {n} असाइनमेंट तय हैं • सोसायटी सदस्य'
+  },
+  'worker.emergencyAlert': { en: 'Emergency Alert', hi: 'आपात अलर्ट' },
+  'worker.scheduleHeader': { en: "Today's Schedule", hi: 'आज का कार्यक्रम' },
+  'worker.activeOnCall': { en: 'Active On-Call', hi: 'सक्रिय ऑन-कॉल' },
+  'worker.newIncoming': { en: 'New Incoming Request — Action Required', hi: 'नया अनुरोध — कार्रवाई आवश्यक' },
+  'worker.estPayout': { en: 'Est. Payout:', hi: 'अनुमानित भुगतान:' },
+  'worker.acceptBooking': { en: 'Accept Booking', hi: 'बुकिंग स्वीकारें' },
+  'worker.dispatchTracker': { en: 'Dispatch Tracker', hi: 'डिस्पैच ट्रैकर' },
+  'worker.payoutBreakdown': { en: 'Payout Breakdown', hi: 'भुगतान विवरण' },
+  'worker.weeklySummary': { en: 'Weekly Summary', hi: 'साप्ताहिक सारांश' },
+  'worker.estEarnings': { en: 'Estimated Earnings', hi: 'अनुमानित कमाई' },
+  'worker.hoursLogged': { en: 'Hours Logged', hi: 'लॉग किए गए घंटे' },
+  'worker.target': { en: 'Target: {n}', hi: 'लक्ष्य: {n}' },
+  'worker.viewPayoutSlips': { en: 'View Payout & Dividend Slips', hi: 'भुगतान व लाभांश देखें' },
+  'worker.coopBulletin': { en: 'Co-op Bulletin', hi: 'सहकारी बुलेटिन' },
+  'worker.votingCloses': { en: 'Ballot closes in 48 hours', hi: 'मतदान 48 घंटे में समाप्त' },
+
+  // Tracker steps
+  'tracker.stepConfirmed': { en: 'Confirmed', hi: 'पुष्टि हुई' },
+  'tracker.stepEnRoute': { en: 'En Route', hi: 'रास्ते में' },
+  'tracker.stepInProgress': { en: 'In Progress', hi: 'प्रगति पर' },
+  'tracker.stepCompleted': { en: 'Completed', hi: 'पूर्ण' },
+  'tracker.nextStage': { en: 'Next Stage', hi: 'अगला चरण' },
+  'tracker.cancel': { en: 'Cancel Booking', hi: 'बुकिंग रद्द करें' },
+  'tracker.review': { en: 'Review & Pay', hi: 'समीक्षा व भुगतान' },
+  'tracker.reviewAndPay': { en: 'Review & Pay', hi: 'समीक्षा व भुगतान' },
+  'tracker.viewBreakup': { en: 'View Breakup', hi: 'विवरण देखें' },
+  'tracker.viewPayout': { en: 'View Payout', hi: 'भुगतान देखें' },
+
+  // Marketplace
+  'mkt.searchPlaceholder': {
+    en: 'Search trades, master skills, or cooperative members...',
+    hi: 'काम, कौशल या सहकारी सदस्य खोजें...'
+  },
+  'mkt.useGps': { en: 'Use My GPS Location', hi: 'मेरा GPS उपयोग करें' },
+  'mkt.acquiringGps': { en: 'Acquiring GPS...', hi: 'GPS प्राप्त हो रहा है...' },
+  'mkt.supplies': { en: 'Find Supplies & Permits', hi: 'सामग्री व परमिट खोजें' },
+  'mkt.all': { en: 'All', hi: 'सभी' },
+  'mkt.distance': { en: 'Distance:', hi: 'दूरी:' },
+  'mkt.withinKm': { en: 'Within {n} km', hi: '{n} किमी के भीतर' },
+  'mkt.allAreas': { en: 'All Areas', hi: 'सभी क्षेत्र' },
+  'mkt.verifiedNearYou': { en: 'Verified Workers Near You', hi: 'आपके पास सत्यापित कारीगर' },
+  'mkt.near': { en: 'Near: {n}', hi: 'पास: {n}' },
+  'mkt.available': { en: '{n} available', hi: '{n} उपलब्ध' },
+  'mkt.noWorkers': { en: 'No workers found within {n} km', hi: '{n} किमी के भीतर कोई कारीगर नहीं मिला' },
+  'mkt.noWorkersHint': { en: 'Try widening the distance or searching across all trades.', hi: 'दूरी बढ़ाकर या सभी कामों में खोजकर देखें।' },
+  'mkt.searchAllAreas': { en: 'Search All Areas', hi: 'सभी क्षेत्रों में खोजें' },
+  'mkt.perHour': { en: '/ hour', hi: '/ घंटा' },
+  'mkt.minDrive': { en: '{n} min drive', hi: '{n} मिनट की दूरी' },
+  'mkt.moreSkills': { en: '+{n} more', hi: '+{n} और' },
+
+  // Federation dashboard
+  'fed.oversight': { en: 'Federation Oversight', hi: 'फ़ेडरेशन निगरानी' },
+  'fed.synced': { en: 'Federation Synced', hi: 'फ़ेडरेशन समक्रमित' },
+  'fed.overview': { en: 'Federation Overview', hi: 'फ़ेडरेशन अवलोकन' },
+  'fed.demandHeatmap': { en: 'Demand Heatmap', hi: 'मांग हीटमैप' },
+  'fed.pendingApprovals': { en: 'Pending Approvals', hi: 'लंबित मंज़ूरी' },
+  'fed.newProposal': { en: 'New Proposal', hi: 'नया प्रस्ताव' },
+  'fed.kpiWorkers': { en: 'Total Verified Workers', hi: 'कुल सत्यापित कारीगर' },
+  'fed.kpiSocieties': { en: 'Active Regional Societies', hi: 'सक्रिय क्षेत्रीय सोसायटियाँ' },
+  'fed.kpiJobs': { en: 'Quarterly Job Volume', hi: 'त्रैमासिक कार्य मात्रा' },
+  'fed.societiesHealth': { en: 'Societies Health & Status', hi: 'सोसायटियों की स्थिति' },
+  'fed.filterSocieties': { en: 'Filter societies...', hi: 'सोसायटियाँ छाँटें...' },
+  'fed.thSociety': { en: 'Society Name', hi: 'सोसायटी का नाम' },
+  'fed.thRegion': { en: 'Region', hi: 'क्षेत्र' },
+  'fed.thMembers': { en: 'Members', hi: 'सदस्य' },
+  'fed.thStatus': { en: 'Status', hi: 'स्थिति' },
+  'fed.thActions': { en: 'Actions', hi: 'कार्रवाई' },
+  'fed.viewMetrics': { en: 'View Metrics', hi: 'आँकड़े देखें' },
+  'socStatus.verified': { en: 'Verified', hi: 'सत्यापित' },
+  'socStatus.audit_pending': { en: 'Audit Pending', hi: 'लेखा-परीक्षा लंबित' },
+  'socStatus.attention': { en: 'Needs Attention', hi: 'ध्यान आवश्यक' },
+  'socStatus.review_required': { en: 'Review Required', hi: 'समीक्षा आवश्यक' },
+  'ruleStatus.active': { en: 'Active', hi: 'सक्रिय' },
+  'ruleStatus.voting_open': { en: 'Voting Open', hi: 'मतदान खुला' },
+  'fed.governanceRules': { en: 'Global Governance Rules', hi: 'वैश्विक शासन नियम' },
+  'fed.federationLaw': { en: 'Federation Law', hi: 'फ़ेडरेशन कानून' },
+  'fed.support': { en: 'Support: {n}%', hi: 'समर्थन: {n}%' },
+  'fed.quorum': { en: 'Ballot threshold: {n}%', hi: 'मतदान सीमा: {n}%' },
+  'fed.castVote': { en: 'Cast Delegate Vote', hi: 'प्रतिनिधि मत दें' },
+  'fed.ballotCast': { en: 'Ballot Cast (Approved)', hi: 'मत डाला गया (स्वीकृत)' },
+  'fed.activity': { en: 'Federation Activity', hi: 'फ़ेडरेशन गतिविधि' },
+
+  // Society admin dashboard
+  'soc.regionalSociety': { en: 'Regional Society • {n}', hi: 'क्षेत्रीय सोसायटी • {n}' },
+  'soc.liveDispatch': { en: 'Live Dispatch Active', hi: 'लाइव डिस्पैच सक्रिय' },
+  'soc.demandTitle': { en: 'Worker Demand by Area — Delhi NCR', hi: 'क्षेत्र अनुसार कारीगर मांग — दिल्ली एनसीआर' },
+  'soc.federationView': { en: 'Federation View', hi: 'फ़ेडरेशन दृश्य' },
+  'soc.reviewApplicants': { en: 'Review Applicants', hi: 'आवेदकों की समीक्षा' },
+  'soc.activeWorkers': { en: 'Active Workers', hi: 'सक्रिय कारीगर' },
+  'soc.pendingRequests': { en: 'Pending Requests', hi: 'लंबित अनुरोध' },
+  'soc.totalBookings': { en: 'Total Bookings', hi: 'कुल बुकिंग' },
+  'soc.societyRevenue': { en: 'Society Revenue (Month)', hi: 'सोसायटी राजस्व (माह)' },
+  'soc.liveActivity': { en: 'Live Regional Activity', hi: 'लाइव क्षेत्रीय गतिविधि' },
+  'soc.autoRefreshing': { en: 'Auto-refreshing', hi: 'स्वतः रीफ़्रेश' },
+  'soc.autoBalancing': { en: 'Dispatch Auto-Balancing:', hi: 'डिस्पैच स्वतः संतुलन:' },
+  'soc.openRequests': { en: 'Open Requests by Locality', hi: 'क्षेत्र अनुसार खुले अनुरोध' },
+  'soc.allTrades': { en: 'All Trades', hi: 'सभी काम' },
+  'soc.highDemand': { en: 'High Demand / Surge', hi: 'उच्च मांग / सर्ज' },
+  'soc.standardCoverage': { en: 'Standard Coverage', hi: 'सामान्य कवरेज' },
+  'soc.deficitArea': { en: 'Deficit Area', hi: 'कमी वाला क्षेत्र' },
+
+  // Approvals
+  'appr.back': { en: 'Back to Governance', hi: 'शासन पर वापस जाएँ' },
+  'appr.accreditation': { en: 'Cooperative Accreditation', hi: 'सहकारी मान्यता' },
+  'appr.title': { en: 'Pending Worker Approvals', hi: 'लंबित कारीगर मंज़ूरी' },
+  'appr.totalPending': { en: 'Total Pending', hi: 'कुल लंबित' },
+  'appr.approvedToday': { en: 'Approved Today', hi: 'आज मंज़ूर' },
+  'appr.thApplicant': { en: 'Applicant', hi: 'आवेदक' },
+  'appr.thSkill': { en: 'Primary Skill', hi: 'मुख्य कौशल' },
+  'appr.thSociety': { en: 'Society Affiliation', hi: 'सोसायटी संबद्धता' },
+  'appr.thApplied': { en: 'Applied Date', hi: 'आवेदन तिथि' },
+  'appr.yearsExp': { en: '{n} Years Exp', hi: '{n} वर्ष अनुभव' },
+  'appr.allReviewed': { en: 'All applicant dossiers have been peer reviewed!', hi: 'सभी आवेदकों की समीक्षा पूरी हो चुकी है!' },
+  'appr.dossier': { en: 'Applicant Verification Dossier', hi: 'आवेदक सत्यापन दस्तावेज़' },
+  'appr.bgChecks': { en: 'Background Checks:', hi: 'पृष्ठभूमि जाँच:' },
+  'appr.verifiedClear': { en: 'Verified Clear', hi: 'सत्यापित — साफ़' },
+  'appr.tradeCert': { en: 'Trade License / Cert:', hi: 'ट्रेड लाइसेंस / प्रमाणपत्र:' },
+  'appr.peerSponsor': { en: 'Peer Sponsor:', hi: 'सहकर्मी प्रायोजक:' },
+  'appr.rejectApplication': { en: 'Reject Application', hi: 'आवेदन अस्वीकार करें' },
+  'appr.approveMember': { en: 'Approve Member', hi: 'सदस्य मंज़ूर करें' },
+
+  // Footer
+  'footer.explore': { en: 'Explore', hi: 'खोजें' },
+  'footer.support': { en: 'Support', hi: 'सहायता' },
+  'footer.promise': { en: 'Our Promise', hi: 'हमारा वादा' },
+  'footer.applyWorker': { en: 'Apply as a Worker', hi: 'कारीगर बनें' },
+  'footer.about': { en: 'About Coopworks', hi: 'Coopworks के बारे में' },
+  'footer.helpFaqs': { en: 'Help & FAQs', hi: 'सहायता व प्रश्नोत्तर' },
+  'footer.privacy': { en: 'Privacy Policy', hi: 'गोपनीयता नीति' },
+  'footer.aboutShort': { en: 'About', hi: 'परिचय' },
+  'footer.customerCare': { en: 'Customer Care', hi: 'ग्राहक सेवा' },
+
+  // Profile
+  'profile.open': { en: 'Open my profile', hi: 'मेरी प्रोफ़ाइल' },
+  'profile.verifiedAccount': { en: 'Verified Account', hi: 'सत्यापित खाता' },
+  'profile.openWorkspace': { en: 'Open {n} Workspace', hi: '{n} कार्यक्षेत्र खोलें' },
+  'profile.bookingsAndTracker': { en: 'Bookings & Tracker', hi: 'बुकिंग व ट्रैकर' },
+  'profile.account': { en: 'Account', hi: 'खाता' },
+  'profile.signOut': { en: 'Sign Out', hi: 'साइन आउट' },
+  'profile.deleteAccount': { en: 'Delete Account', hi: 'खाता हटाएँ' },
+  'profile.demoPreview': { en: 'Preview workspaces', hi: 'कार्यक्षेत्र पूर्वावलोकन' },
+
+  // Booking contact (chat & call)
+  'chat.with': { en: 'Chat with {name}', hi: '{name} से चैट करें' },
+  'chat.bookingRef': { en: 'Booking {ref}', hi: 'बुकिंग {ref}' },
+  'chat.placeholder': { en: 'Type a message…', hi: 'संदेश लिखें…' },
+  'chat.send': { en: 'Send', hi: 'भेजें' },
+  'chat.quickReplies': { en: 'Quick replies', hi: 'त्वरित उत्तर' },
+  'chat.readOnly': { en: 'This booking is closed — the conversation is archived.', hi: 'यह बुकिंग समाप्त हो चुकी है — बातचीत संग्रहीत है।' },
+  'chat.empty': { en: 'No messages yet. Say hello to start the conversation.', hi: 'अभी कोई संदेश नहीं। बातचीत शुरू करने के लिए नमस्ते कहें।' },
+  'chat.justNow': { en: 'just now', hi: 'अभी अभी' },
+  'call.title': { en: 'Call {name}', hi: '{name} को कॉल करें' },
+  'call.subtitle': { en: 'Booking {ref} • {service}', hi: 'बुकिंग {ref} • {service}' },
+  'call.ringing': { en: 'Ringing…', hi: 'कॉल हो रही है…' },
+  'call.connected': { en: 'Connected', hi: 'जुड़ गए' },
+  'call.secureNote': { en: 'Numbers are masked — Coopworks relays the call and never shares your number until you accept a job.', hi: 'नंबर सुरक्षित रहते हैं — Coopworks कॉल जोड़ती है, नंबर सिर्फ़ जॉब स्वीकारने पर साझा होता है।' },
+  'call.openDialer': { en: 'Call via phone dialer', hi: 'फ़ोन डायलर से कॉल करें' },
+  'call.end': { en: 'End Call', hi: 'कॉल समाप्त करें' },
+  'call.mute': { en: 'Mute', hi: 'म्यूट' },
+  'call.speaker': { en: 'Speaker', hi: 'स्पीकर' },
+  'contact.worker': { en: 'Assigned Worker', hi: 'नियुक्त कारीगर' },
+  'contact.client': { en: 'Client', hi: 'ग्राहक' },
+  'contact.phone': { en: 'Call', hi: 'कॉल' },
+  'contact.message': { en: 'Message', hi: 'संदेश' },
+
+  // CustomerHome
+  'customer.welcomeBack': { en: 'Welcome back', hi: 'वापस स्वागत है' },
+  'customer.coopworksNetwork': { en: 'Coopworks cooperative network', hi: 'कूपर्क्स सहकारी नेटवर्क' },
+  'customer.bookVerifiedSub': { en: 'Book verified local workers — fair pay, no middlemen.', hi: 'सत्यापित स्थानीय कारीगर बुक करें — उचित मजदूरी, बिना दलाल के।' },
+  'action.bookWorker': { en: 'Book a Worker', hi: 'कारीगर बुक करें' },
+  'quick.findWorker': { en: 'Find a Worker', hi: 'कारीगर खोजें' },
+  'quick.verifiedRated': { en: 'Verified & rated', hi: 'सत्यापित और रेटेड' },
+  'quick.newRequest': { en: 'New Request', hi: 'नया अनुरोध' },
+  'quick.bookSlot': { en: 'Book a service slot', hi: 'सेवा स्लॉट बुक करें' },
+  'quick.activeBookings': { en: '{n} active', hi: '{n} सक्रिय' },
+  'quick.emergency': { en: 'Emergency', hi: 'आपात' },
+  'quick.priorityDispatch': { en: 'Priority dispatch', hi: 'प्राथमिकता डिस्पैच' },
+  'section.activeBookings': { en: 'Active Bookings', hi: 'सक्रिय बुकिंग' },
+  'action.viewAll': { en: 'View all →', hi: 'सभी देखें →' },
+  'empty.noActiveBookings': { en: 'No active bookings yet', hi: 'अभी कोई सक्रिय बुकिंग नहीं' },
+  'empty.browseBook': { en: 'Browse verified workers from cooperative societies near you and book a consultation or on-site service in minutes.', hi: 'आपके पास की सहकारी सोसायटियों के सत्यापित कारीगर देखें और मिनटों में बुक करें।' },
+  'section.verifiedWorkers': { en: 'Verified Workers', hi: 'सत्यापित कारीगर' },
+  'action.seeAll': { en: 'See all', hi: 'सभी देखें' },
+  'empty.noWorkersNearby': { en: 'No workers nearby yet — check back soon.', hi: 'अभी पास में कोई कारीगर नहीं — जल्द देखें।' },
+  'promise.coopPromise': { en: 'The Co-op Promise', hi: 'सहकारी वादा' },
+  'promise.item1': { en: 'Workers are cooperative members — fair wages, not gig exploitation.', hi: 'कारीगर सहकारी सदस्य हैं — उचित मजदूरी, गिग शोषण नहीं।' },
+  'promise.item2': { en: 'Every invoice shows the full split: worker, society fund & platform.', hi: 'हर बिल में पूरा हिसाब: कारीगर, सोसायटी फंड और प्लेटफ़ॉर्म।' },
+  'promise.item3': { en: 'Members are society-verified and insured before dispatch.', hi: 'सदस्यों की सत्यापना और बीमा डिस्पैच से पहले होता है।' },
+  'promise.item4': { en: 'One member, one vote — you hire from a worker-owned platform.', hi: 'एक सदस्य, एक वोट — आप कारीगर-मालिक प्लेटफ़ॉर्म से काम लेते हैं।' },
+  'resource.localResources': { en: 'Local Co-op Resources', hi: 'स्थानीय सहकारी संसाधन' },
+  'resource.toolsMaterials': { en: 'Tools, materials & services near you', hi: 'आपके पास के टूल, सामग्री और सेवाएँ' },
+  'action.trackLive': { en: 'Track Live', hi: 'लाइव ट्रैक करें' },
+
+  // Tracker telemetry
+  'tracker.workerEnRoute': { en: 'Worker En Route via Ring Road', hi: 'कारीगर रिंग रोड से रास्ते में' },
+  'tracker.workerOnSite': { en: 'Worker On-Site', hi: 'कारीगर साइट पर' },
+  'tracker.workerMoving': { en: 'Worker Moving to Job Site', hi: 'कारीगर काम स्थल की ओर बढ़ रहा है' },
+  'tracker.gpsCoords': { en: 'GPS:', hi: 'GPS:' },
+  'tracker.distance': { en: 'Distance:', hi: 'दूरी:' },
+  'tracker.eta': { en: 'ETA:', hi: 'अनुमानित समय:' },
+  'tracker.thisBookingCancelled': { en: 'This booking was cancelled', hi: 'यह बुकिंग रद्द हो गई' },
+  'tracker.serviceCompletedThankYou': { en: 'Service completed — thank you!', hi: 'सेवा पूर्ण — धन्यवाद!' },
+  'tracker.cancelledBy': { en: 'by the {n}', hi: '{n} द्वारा' },
+  'tracker.noChargesApply': { en: 'No charges apply and the worker has been notified.', hi: 'कोई शुल्क नहीं और कारीगर को सूचित कर दिया गया है।' },
+  'tracker.paidThroughSociety': { en: 'The worker has been paid through the society, and your feedback helps the next customer choose well.', hi: 'कारीगर को सोसायटी के माध्यम से भुगतान हो गया है, आपकी प्रतिक्रिया अगले ग्राहक की मदद करती है।' },
+  'summary.worker': { en: 'Worker', hi: 'कारीगर' },
+  'summary.job': { en: 'Job', hi: 'काम' },
+  'summary.date': { en: 'Date', hi: 'तारीख' },
+  'summary.cost': { en: 'Cost', hi: 'लागत' },
+  'tracker.jobSpecs': { en: 'Job Specifications', hi: 'काम की जानकारी' },
+  'tracker.scheduledTime': { en: 'Scheduled Time:', hi: 'निर्धारित समय:' },
+  'tracker.location': { en: 'Location:', hi: 'स्थान:' },
+  'tracker.estimatedCost': { en: 'Estimated Cost:', hi: 'अनुमानित लागत:' },
+  'tracker.serviceType': { en: 'Service Type:', hi: 'सेवा प्रकार:' },
+  'tracker.notes': { en: 'Notes:', hi: 'नोट्स:' },
+  'tracker.coopVerified': { en: 'Co-op Verified', hi: 'सहकारी सत्यापित' },
+  'tracker.coopClient': { en: 'Co-op Client', hi: 'सहकारी ग्राहक' },
+  'tracker.jobsCompleted': { en: 'jobs completed', hi: 'काम पूर्ण' },
+
+  // ReviewModal
+  'review.serviceComplete': { en: 'Service Complete', hi: 'सेवा पूर्ण' },
+  'review.feedbackLabel': { en: 'Your Feedback on the Work', hi: 'काम पर आपकी प्रतिक्रिया' },
+  'review.feedbackPlaceholder': { en: 'Describe work quality, adherence to time, and overall craftsmanship...', hi: 'काम की गुणवत्ता, समय का पालन और समग्र शिल्प कौशल लिखें...' },
+  'review.workQualityCheck': { en: 'Work Quality Check', hi: 'काम की गुणवत्ता जाँच' },
+  'review.followedSafetyRules': { en: 'Did the worker follow safety rules?', hi: 'क्या कारीगर ने सुरक्षा नियमों का पालन किया?' },
+  'review.siteLeftClean': { en: 'Was the site left clean and safe?', hi: 'क्या साइट साफ और सुरक्षित छोड़ी गई?' },
+  'review.extraHoursWorked': { en: 'Extra Hours Worked', hi: 'अतिरिक्त घंटे काम किए' },
+  'review.paidAtRate': { en: 'Paid at 1.5× rate', hi: '1.5× दर से भुगतान' },
+  'review.submitReviewComplete': { en: 'Submit Review & Complete Escrow', hi: 'समीक्षा जमा करें और ईस्क्रो पूर्ण करें' },
+  'review.noOvertime': { en: 'No overtime', hi: 'कोई ओवरटाइम नहीं' },
+
+  // PayoutDetailModal
+  'payout.settledStatement': { en: 'Settled Statement', hi: 'निपटान विवरण' },
+  'payout.netPayout': { en: 'Net Member Payout', hi: 'शुद्ध सदस्य भुगतान' },
+  'payout.paidToday': { en: 'Paid to Worker\'s Account • Today', hi: 'कारीगर के खाते में भुगतान • आज' },
+  'payout.baseLaborPay': { en: 'Base Labor Pay', hi: 'मूल श्रम वेतन' },
+  'payout.overtime': { en: 'Overtime 1.5×', hi: 'ओवरटाइम 1.5×' },
+  'payout.equipmentAllowance': { en: 'Equipment & Travel Allowance', hi: 'उपकरण और यात्रा भत्ता' },
+  'payout.totalJobAmount': { en: 'Total Job Amount', hi: 'कुल काम राशि' },
+  'payout.societyFundShare': { en: 'Society Welfare Fund Share ({n}%)', hi: 'सोसायटी कल्याण फंड ({n}%)' },
+  'payout.platformFee': { en: 'Platform Maintenance Fee ({n}%)', hi: 'प्लेटफ़ॉर्न रखरखाव शुल्क ({n}%)' },
+  'payout.workerTakeHome': { en: 'Worker\'s Take-Home Pay', hi: 'कारीगर की तनख्वाह' },
+  'payout.societySharePaysFor': { en: 'What Your Society Share Pays For', hi: 'आपका सोसायटी हिस्सा किस काम आता है' },
+  'payout.societyShareDesc': { en: 'The {n} held back by your society pays for worker accident cover, tool repairs and training for new members.', hi: 'आपकी सोसायटी का {n} कारीगर दुर्घटना कवरेज, टूल मरम्मत और नए सदस्यों के प्रशिक्षण के लिए खर्च होता है।' },
+  'payout.exportPdf': { en: 'Export Receipt PDF', hi: 'रसीद PDF निर्यात' },
+  'payout.close': { en: 'Close', hi: 'बंद करें' },
+
+  // EmergencyAlertModal
+  'emergency.alertTitle': { en: 'EMERGENCY DISPATCH ALERT', hi: 'आपातकालीन डिस्पैच अलर्ट' },
+  'emergency.priority1': { en: 'Plumbing Priority 1', hi: 'प्लंबिंग प्राथमिकता 1' },
+  'emergency.burstPipe': { en: 'Burst Main Pipe / Flooding', hi: 'मुख्य पाइप फटा / बाढ़' },
+  'emergency.urgentPayout': { en: 'Urgent Rate Payout', hi: 'तुरंत रेट भुगतान' },
+  'emergency.incidentNote': { en: 'Client Incident Note:', hi: 'ग्राहक घटना नोट:' },
+  'emergency.declineNext': { en: 'Decline (Pass to Next)', hi: 'अस्वीकार (अगले को दें)' },
+  'emergency.acceptDispatch': { en: 'Accept Dispatch', hi: 'डिस्पैच स्वीकारें' },
+
+  // NewBookingModal
+  'booking.coopScheduling': { en: 'Cooperative Scheduling', hi: 'सहकारी शेड्यूलिंग' },
+  'booking.bookTradeService': { en: 'Book Trade Service', hi: 'ट्रेड सेवा बुक करें' },
+  'booking.selectProfessional': { en: 'Select Professional', hi: 'पेशेवर चुनें' },
+  'booking.serviceType': { en: 'Service Type', hi: 'सेवा प्रकार' },
+  'booking.consultation': { en: 'Consultation', hi: 'परामर्श' },
+  'booking.inspectionEstimates': { en: 'Inspection & estimates', hi: 'निरीक्षण और अनुमान' },
+  'booking.onSiteLabor': { en: 'On-Site Labor', hi: 'ऑन-साइट श्रम' },
+  'booking.fullTradeWork': { en: 'Full trade physical work', hi: 'पूर्ण ट्रेड शारीरिक काम' },
+  'booking.selectDate': { en: 'Select Date', hi: 'तारीख चुनें' },
+  'booking.arrivalWindow': { en: 'Arrival Window', hi: 'आगमन खिड़की' },
+  'booking.serviceAddress': { en: 'Service Address', hi: 'सेवा पता' },
+  'booking.useCurrentLocation': { en: 'Use My Current Location', hi: 'मेरी वर्तमान स्थिति' },
+  'booking.projectNotes': { en: 'Project Notes & Dimensions', hi: 'प्रोजेक्ट नोट्स और आयाम' },
+  'booking.projectNotesPlaceholder': { en: 'Include material preferences, access codes, or urgent considerations...', hi: 'सामग्री, एक्सेस कोड या तत्काल आवश्यकताएँ लिखें...' },
+  'booking.immediateDispatch': { en: 'Immediate Dispatch Needed?', hi: 'तत्काल डिस्पैच चाहिए?' },
+  'booking.routesNearest': { en: 'Routes to nearest active apprentice with priority surge', hi: 'प्राथमिकता के साथ निकटतम सक्रिय शिक्षार्थी तक मार्ग' },
+  'booking.confirmBooking': { en: 'Confirm Booking', hi: 'बुकिंग पुष्टि करें' },
+  'booking.addressPlaceholder': { en: 'Flat 402, Green Meadows Society, Janakpuri, New Delhi', hi: 'फ्लैट 402, ग्रीन मीडोज सोसायटी, जनकपुरी, नई दिल्ली' },
+
+  // Map pills
+  'map.locatePosition': { en: 'Locate My Position', hi: 'मेरी स्थिति खोजें' },
+  'map.acquiringGps': { en: 'Acquiring GPS...', hi: 'GPS मिल रहा है...' },
+  'map.yourArea': { en: 'Your area', hi: 'आपका क्षेत्र' },
+  'map.verifiedNearby': { en: 'verified workers nearby', hi: 'सत्यापित कारीगर पास में' },
+  'map.dispatchActive': { en: 'Dispatch active', hi: 'डिस्पैच सक्रिय' },
+  'map.viewProfile': { en: 'View Profile', hi: 'प्रोफ़ाइल देखें' },
+  'map.bookWorker': { en: 'Book', hi: 'बुक' },
+  'map.jobSite': { en: 'Job Site', hi: 'काम स्थल' },
+  'map.yourLocation': { en: 'Your Location', hi: 'आपकी स्थिति' },
+
+  // DemandMap
+  'demand.liveDemand': { en: 'Live Demand', hi: 'लाइव मांग' },
+  'demand.openRequests': { en: 'open requests', hi: 'खुले अनुरोध' },
+  'demand.openJobs': { en: 'open {n} jobs', hi: '{n} खुले काम' },
+  'demand.underserved': { en: '⚡ Underserved — route workers here', hi: '⚡ कमी — यहाँ कारीगर भेजें' },
+  'demand.coverageAdequate': { en: '✓ Coverage adequate', hi: '✓ कवरेज पर्याप्त' },
+
+  // LocalResourceLocator
+  'resource.grounding': { en: 'Gemini + Google Maps Grounding', hi: 'जेमिनी + गूगल मैप्स' },
+  'resource.liveGps': { en: 'Live GPS Geolocation', hi: 'लाइव GPS जियोलोकेशन' },
+  'resource.permitLocator': { en: 'Local Trade Resource & Permit Locator', hi: 'स्थानीय ट्रेड संसाधन और परमिट खोजक' },
+  'resource.searchOrigin': { en: 'Current Search Origin:', hi: 'वर्तमान खोज मूल:' },
+  'resource.searchPlaceholder': { en: 'Search trade supplies, permit desks, tool rentals...', hi: 'ट्रेड सामग्री, परमिट डेस्क, टूल किराया खोजें...' },
+  'resource.groundingSearch': { en: 'Grounding...', hi: 'खोज हो रही है...' },
+  'resource.groundSearch': { en: 'Ground Search', hi: 'खोजें' },
+  'resource.suggestedInquiries': { en: 'Suggested Cooperative Inquiries', hi: 'सुझाए गए सहकारी प्रश्न' },
+  'resource.groundedLocations': { en: 'Google Maps Grounded Locations', hi: 'गूगल मैप्स स्थान' },
+  'resource.placesFound': { en: '{n} verified places found', hi: '{n} सत्यापित स्थान मिले' },
+  'resource.openInMaps': { en: 'Open in Google Maps', hi: 'गूगल मैप्स में खोलें' },
+  'resource.needTeam': { en: 'Need a team of workers?', hi: 'कारीगरों की टीम चाहिए?' },
+  'resource.bulkOrderDesc': { en: 'Schools, societies and offices can place one bulk order for several verified workers.', hi: 'स्कूल, सोसायटी और कार्यालय कई सत्यापित कारीगरों के लिए एक बल्क ऑर्डर दे सकते हैं।' },
+  'resource.placeBulkOrder': { en: 'Place bulk order', hi: 'बल्क ऑर्डर दें' },
+  'resource.yourBulkOrders': { en: 'Your bulk orders', hi: 'आपके बल्क ऑर्डर' },
+
+  // WorkerProfile
+  'worker.backToWorkers': { en: 'Back to Workers', hi: 'कारीगरों पर वापस' },
+  'worker.verifiedMember': { en: 'Verified Member', hi: 'सत्यापित सदस्य' },
+  'worker.fixedQuote': { en: 'Fixed quote before the job starts', hi: 'काम शुरू होने से पहले निश्चित कोटेशन' },
+  'worker.reviewsCount': { en: 'reviews', hi: 'समीक्षाएँ' },
+  'worker.checkedBySociety': { en: 'Checked by Society', hi: 'सोसायटी द्वारा जाँचा गया' },
+  'worker.regionalSociety': { en: 'Regional Society', hi: 'क्षेत्रीय सोसायटी' },
+  'worker.membershipId': { en: 'Membership ID', hi: 'सदस्यता आईडी' },
+  'worker.societyShare': { en: 'Society Share', hi: 'सोसायटी हिस्सा' },
+  'worker.memberDividendEarner': { en: 'Member • Dividend Earner', hi: 'सदस्य • लाभांश अर्जक' },
+  'worker.recentProjects': { en: 'Recent Cooperative Projects', hi: 'हाल के सहकारी प्रोजेक्ट' },
+  'worker.bookService': { en: 'Book Service', hi: 'सेवा बुक करें' },
+  'worker.consultationRadio': { en: 'Consultation', hi: 'परामर्श' },
+  'worker.initialInspection': { en: 'Initial site inspection & material estimate', hi: 'प्रारंभिक साइट निरीक्षण और सामग्री अनुमान' },
+  'worker.fullJobOnSite': { en: 'Full Job (On-Site)', hi: 'पूर्ण काम (ऑन-साइट)' },
+  'worker.completePhysicalWork': { en: 'Complete physical work, materials excluded', hi: 'पूर्ण शारीरिक काम, सामग्री अलग' },
+  'worker.requestAvailability': { en: 'Request Availability', hi: 'उपलब्धता अनुरोध' },
+  'worker.payAfterDone': { en: 'You pay only after the work is done and you confirm it.', hi: 'आप काम पूरा होने और पुष्टि के बाद ही भुगतान करते हैं।' },
+  'worker.ourGuarantee': { en: 'Our Guarantee', hi: 'हमारी गारंटी' },
+  'worker.protectionFund': { en: 'Every job booked through Coopworks is covered by our ₹50L worker protection fund. If work is not done properly, your society fixes it or refunds you.', hi: 'Coopworks के माध्यम से बुक किया गया हर काम हमारे ₹50L कारीगर सुरक्षा कोष से कवर है। अगर काम सही नहीं हुआ, आपकी सोसायटी ठीक करेगी या रिफंड देगी।' },
+  'worker.seePromise': { en: 'See the full Coopworks promise', hi: 'पूरा Coopworks वादा देखें' },
+  'worker.bookThisWorker': { en: 'Book this worker', hi: 'इस कारीगर को बुक करें' },
+
+  // BulkOrdersPanel
+  'bulk.institutionOrders': { en: 'Institution Bulk Orders', hi: 'संस्थागत बल्क ऑर्डर' },
+  'bulk.awaitingStaff': { en: '{n} awaiting staff', hi: '{n} स्टाफ़ की प्रतीक्षा' },
+  'bulk.noOpenOrders': { en: 'No open bulk orders', hi: 'कोई खुला बल्क ऑर्डर नहीं' },
+  'bulk.willAppearHere': { en: 'New institution requests will appear here for staffing.', hi: 'नए संस्थागत अनुरोध यहाँ दिखाई देंगे।' },
+  'bulk.allocateWorkers': { en: 'Allocate workers', hi: 'कारीगर आवंटित करें' },
+  'bulk.markFulfilled': { en: 'Mark fulfilled', hi: 'पूर्ण चिन्हित करें' },
+  'bulk.fulfilled': { en: 'Fulfilled', hi: 'पूर्ण' },
+  'bulk.closed': { en: 'Closed', hi: 'बंद' },
+
+  // LoginView
+  'login.backHome': { en: 'Back to home', hi: 'होम पर वापस' },
+  'login.logInTo': { en: 'Log in to Coopworks', hi: 'Coopworks में लॉग इन करें' },
+  'login.signInDesc': { en: 'Sign in with a role to open its workspace. Each account sees only the pages its role is allowed to use.', hi: 'भूमिका से साइन इन करें। हर खाता अपनी भूमिका के अनुसार पेज देखता है।' },
+  'login.memberAccounts': { en: 'Member accounts', hi: 'सदस्य खाते' },
+  'login.logInAs': { en: 'Log in as {n}', hi: '{n} के रूप में लॉग इन' },
+  'login.backOffice': { en: 'Co-op back office', hi: 'सहकारी बैक ऑफिस' },
+  'login.issuedByCoop': { en: 'accounts issued by the co-op', hi: 'सहकारी द्वारा जारी खाते' },
+  'login.adminCannotRegister': { en: 'Society and federation admin accounts are opened by the cooperative in the back office — they cannot be self-registered.', hi: 'सोसायटी और फेडरेशन एडमिन खाते सहकारी द्वारा बैक ऑफिस में खोले जाते हैं — इन्हें स्वयं पंजीकृत नहीं किया जा सकता।' },
+  'login.newCustomerOrWorker': { en: 'New customer or worker? Create your account →', hi: 'नए ग्राहक या कारीगर? खाता बनाएँ →' },
+  'login.roleCustomer': { en: 'Customer', hi: 'ग्राहक' },
+  'login.roleWorker': { en: 'Worker', hi: 'कारीगर' },
+  'login.roleSocietyAdmin': { en: 'Society Admin', hi: 'सोसायटी एडमिन' },
+  'login.roleFederationAdmin': { en: 'Federation Admin', hi: 'फेडरेशन एडमिन' },
+  'login.findVerifiedWorkers': { en: 'Find verified workers near you, book a job and track it live until it is done.', hi: 'अपने पास सत्यापित कारीगर खोजें, काम बुक करें और पूरा होने तक लाइव ट्रैक करें।' },
+  'login.workerBlurb': { en: 'Your jobs, live on-site work, payment breakup and society voting.', hi: 'आपके काम, लाइव ऑन-साइट काम, भुगतान विवरण और सोसायटी मतदान।' },
+  'login.societyAdminBlurb': { en: 'Verify new workers, review society bookings and keep your local co-op healthy.', hi: 'नए कारीगरों का सत्यापन, सोसायटी बुकिंग की समीक्षा और स्थानीय सहकारी को स्वस्थ रखें।' },
+  'login.federationAdminBlurb': { en: 'Oversight across societies, approvals and federation-level decisions.', hi: 'सोसायटियों में निगरानी, मंजूरी और फेडरेशन स्तर के निर्णय।' },
+
+  // PromiseModal
+  'promise.ourPromiseToYou': { en: 'Our promise to you', hi: 'आपसे हमारा वादा' },
+  'promise.workerOwnedCoop': { en: 'Worker-owned co-operative', hi: 'कारीगर-स्वामित्व सहकारी' },
+
+  // PromiseModal CTAs
+  'cta.browseCrafts': { en: 'Browse Cooperative Crafts', hi: 'सहकारी शिल्प देखें' },
+  'cta.joinAsWorker': { en: 'Join a society as a worker instead', hi: 'कारीगर के रूप में सोसायटी से जुड़ें' },
+
+  // EmergencyAlertModal
+  'emergency.priorityTag': { en: 'Plumbing Priority 1', hi: 'प्लंबिंग प्राथमिकता 1' },
+  'emergency.distance': { en: '0.8 miles away • 4 min drive', hi: '0.8 मील दूर • 4 मिनट ड्राइव' },
+  'emergency.incidentTitle': { en: 'Burst Main Pipe / Flooding', hi: 'मुख्य पाइप फटना / बाढ़' },
+  'emergency.incidentText': {
+    en: '"Major leak in basement level. Water rising rapidly near electrical risers. Main water gate shutoff valve is jammed."',
+    hi: '"बेसमेंट में बड़ा रिसाव। विद्युत राइज़र के पास पानी तेज़ी से बढ़ रहा है। मुख्य पानी गेट वाल्व जाम है।"'
+  },
+  'emergency.urgencyPayout': { en: 'Urgent Rate Payout', hi: 'आपात दर भुगतान' },
+
+  // DemandMap
+  'demand.workersOnSite': { en: 'Workers on site', hi: 'साइट पर कारीगर' },
+  'demand.openRequestsFor': { en: 'Open requests ({n})', hi: 'खुले अनुरोध ({n})' },
+  'demand.routeWorkers': { en: 'Underserved — route workers here', hi: 'कम सेवा — यहाँ कारीगर भेजें' },
+  'demand.badgeOpen': { en: '{n} open requests', hi: '{n} खुले अनुरोध' },
+  'demand.badgeJobs': { en: '{n} open {t} jobs', hi: '{t} के {n} खुले काम' },
+  'resource.groundingShort': { en: 'Grounding...', hi: 'खोज जारी...' },
+
+  // Auth (live sign-in card)
+  'auth.welcomeBack': { en: 'Welcome Back', hi: 'वापसी पर स्वागत है' },
+  'auth.joinCoop': { en: 'Join the Cooperative', hi: 'सहकारी से जुड़ें' },
+  'auth.signInDesc': { en: 'Sign in with your Coopworks account', hi: 'अपने Coopworks खाते से साइन इन करें' },
+  'auth.iAmA': { en: 'I am a', hi: 'मैं एक हूँ' },
+  'auth.fullName': { en: 'Full Name', hi: 'पूरा नाम' },
+  'auth.phoneNumber': { en: 'Phone Number', hi: 'फ़ोन नंबर' },
+  'auth.emailAddress': { en: 'Email Address', hi: 'ईमेल पता' },
+  'auth.password': { en: 'Password', hi: 'पासवर्ड' },
+  'auth.processing': { en: 'Processing...', hi: 'प्रक्रिया जारी...' },
+  'auth.signIn': { en: 'Sign In', hi: 'साइन इन करें' },
+  'auth.createAccount': { en: 'Create Account', hi: 'खाता बनाएँ' },
+  'auth.noAccountRegister': { en: "Don't have an account? Register here", hi: 'खाता नहीं है? यहाँ पंजीकरण करें' },
+  'auth.haveAccountSignIn': { en: 'Already have an account? Sign in', hi: 'पहले से खाता है? साइन इन करें' },
+  'auth.deleteAccount': { en: 'Delete my account permanently', hi: 'मेरा खाता स्थायी रूप से हटाएँ' },
+  'auth.joinCoopDesc': { en: 'Create an account — your role determines your workspace', hi: 'खाता बनाएँ — आपकी भूमिका आपका वर्कस्पेस तय करती है' },
+
+  // WorkerProfile (public worker card)
+  'wp.backToWorkers': { en: 'Back to Workers', hi: 'कारीगरों पर वापस' },
+  'wp.perHour': { en: '/ hour', hi: '/ घंटा' },
+  'wp.fixedQuote': { en: 'Fixed quote before the job starts', hi: 'काम शुरू होने से पहले निश्चित कोटेशन' },
+  'wp.checkedBySociety': { en: 'Checked by Society', hi: 'सोसायटी द्वारा जाँचा गया' },
+  'wp.regionalSociety': { en: 'Regional Society', hi: 'क्षेत्रीय सोसायटी' },
+  'wp.membershipId': { en: 'Membership ID', hi: 'सदस्यता आईडी' },
+  'wp.societyShare': { en: 'Society Share', hi: 'सोसायटी हिस्सा' },
+  'wp.memberDividend': { en: 'Member • Dividend Earner', hi: 'सदस्य • लाभांश प्राप्तकर्ता' },
+  'wp.fullJob': { en: 'Full Job (On-Site)', hi: 'पूरा काम (ऑन-साइट)' },
+  'wp.fullJobDesc': { en: 'Complete physical work, materials excluded', hi: 'पूर्ण शारीरिक कार्य, सामग्री अलग' },
+  'wp.consultationDesc': { en: 'Initial site inspection & material estimate', hi: 'प्रारंभिक साइट निरीक्षण और सामग्री अनुमान' },
+  'wp.requestAvailability': { en: 'Request Availability', hi: 'उपलब्धता पूछें' },
+  'wp.restrictedToCustomers': { en: 'Bookings restricted to customers', hi: 'बुकिंग केवल ग्राहकों के लिए' },
+  'wp.ourGuarantee': { en: 'Our Guarantee', hi: 'हमारी गारंटी' },
+  'wp.seeFullPromise': { en: 'See the full Coopworks promise', hi: 'पूरा Coopworks वादा देखें' },
+  'wp.societyVerifiedLine': { en: 'Society Verified', hi: 'सोसायटी सत्यापित' },
+  'wp.regionalSocietyVal': { en: 'Janakpuri Workers Co-op', hi: 'जनकपुरी वर्कर्स को-ऑप' },
+  'wp.guildMember': { en: 'Guild Member', hi: 'गिल्ड सदस्य' },
+  'wp.activeNow': { en: 'Active Now', hi: 'अभी सक्रिय' },
+  'wp.verifiedBadge': { en: 'Verified', hi: 'सत्यापित' },
+  'wp.skills': { en: 'Skills & Certifications', hi: 'कौशल और प्रमाणपत्र' },
+  'wp.recentProjects': { en: 'Recent Projects', hi: 'हाल की परियोजनाएँ' },
+  'wp.reviews': { en: 'Member Reviews', hi: 'सदस्य समीक्षाएँ' },
+  'wp.completedJobs': { en: 'Jobs Completed', hi: 'पूर्ण किए गए काम' },
+  'wp.responseTime': { en: 'Response Time', hi: 'प्रतिक्रिया समय' },
+  'wp.distance': { en: 'Distance', hi: 'दूरी' },
+  'wp.callSociety': { en: 'Call the Society', hi: 'सोसायटी को कॉल करें' },
+  'wp.sendMessage': { en: 'Send Message', hi: 'संदेश भेजें' },
+  'wp.insuranceBadge': { en: 'Enrolled & Verified', hi: 'नामांकित और सत्यापित' },
+  'wp.viewPublicProfile': { en: 'View Public Profile', hi: 'सार्वजनिक प्रोफ़ाइल देखें' },
+  'wp.experienceSociety': { en: 'Experience & Society', hi: 'अनुभव और सोसायटी' },
+
+  // ReviewModal
+  'review.yes': { en: 'Yes', hi: 'हाँ' },
+  'review.no': { en: 'No', hi: 'नहीं' },
+  'review.overtimeHint': {
+    en: 'Did the work run longer than the booked {n}h slot? Add the extra hours and the member gets paid overtime — nothing is hidden from the bill.',
+    hi: 'क्या काम बुक किए गए {n} घंटे से ज़्यादा चला? अतिरिक्त घंटे जोड़ें — सदस्य को ओवरटाइम मिलेगा, बिल में कुछ छिपा नहीं है।'
+  },
+  'review.rating1': { en: 'Poor Craftsmanship', hi: 'खराब शिल्प कौशल' },
+  'review.rating2': { en: 'Fair - Needs Review', hi: 'औसत - समीक्षा आवश्यक' },
+  'review.rating3': { en: 'Good Standard', hi: 'अच्छा स्तर' },
+  'review.rating4': { en: 'Very Good Quality', hi: 'बहुत अच्छी गुणवत्ता' },
+  'review.rating5': { en: 'Exceptional Master Craft', hi: 'उत्कृष्ट शिल्प कौशल' },
+  'review.selectRating': { en: 'Select Rating', hi: 'रेटिंग चुनें' },
+
+  // NewBookingModal
+  'booking.consultationTitle': { en: 'Consultation', hi: 'परामर्श' },
+  'booking.onSiteLaborTitle': { en: 'On-Site Labor', hi: 'ऑन-साइट कार्य' },
+  'booking.emergencyHint': { en: 'Routes to nearest active apprentice with priority surge', hi: 'प्राथमिकता के साथ निकटतम सक्रिय कारीगर तक रूट करें' },
+  'booking.confirmBookingLock': { en: 'Confirm Booking', hi: 'बुकिंग पक्की करें' },
+
+  // BulkOrderModal
+  'bulk.bookTeam': { en: 'Book a team of workers', hi: 'कारीगरों की टीम बुक करें' },
+  'bulk.orgName': { en: 'Organisation Name', hi: 'संगठन का नाम' },
+  'bulk.contactPerson': { en: 'Contact Person', hi: 'संपर्क व्यक्ति' },
+  'bulk.mobileNumber': { en: 'Mobile Number', hi: 'मोबाइल नंबर' },
+  'bulk.serviceNeeded': { en: 'Service Needed', hi: 'आवश्यक सेवा' },
+  'bulk.workersNeeded': { en: 'Workers Needed', hi: 'आवश्यक कारीगर' },
+  'bulk.startDate': { en: 'Preferred Start Date', hi: 'पसंदीदा आरंभ तिथि' },
+  'bulk.siteArea': { en: 'Location / Site Area', hi: 'स्थान / साइट क्षेत्र' },
+  'bulk.scopeNotes': { en: 'Scope Notes (optional)', hi: 'कार्य विवरण (वैकल्पिक)' },
+  'bulk.submitOrder': { en: 'Submit Bulk Order Request', hi: 'बल्क ऑर्डर अनुरोध जमा करें' },
+  'bulk.errOrg': { en: 'Enter your organisation name.', hi: 'अपने संगठन का नाम दर्ज करें।' },
+  'bulk.errContact': { en: 'Enter a contact person name.', hi: 'संपर्क व्यक्ति का नाम दर्ज करें।' },
+  'bulk.errPhone': { en: 'Enter a valid 10-digit Indian mobile number.', hi: 'मान्य 10 अंकों का भारतीय मोबाइल नंबर दर्ज करें।' },
+  'bulk.errWorkers': { en: 'Workers needed must be between 1 and 200.', hi: 'कारीगरों की संख्या 1 से 200 के बीच होनी चाहिए।' },
+  'bulk.errDate': { en: 'Pick a preferred start date.', hi: 'पसंदीदा आरंभ तिथि चुनें।' }
+};
+
+export function translate(lang: Lang, key: string, vars?: Record<string, string | number>): string {
+  const entry = STRINGS[key];
+  const text = entry ? entry[lang] ?? entry.en : key;
+  if (!vars) return text;
+  return text.replace(/\{(\w+)\}/g, (_, name) =>
+    name in vars ? String(vars[name]) : `{${name}}`
+  );
+}

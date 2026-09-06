@@ -1,0 +1,268 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Class-based dark mode for Tailwind v4: the app toggles a `dark` class on
+   <html> (ThemeContext), so dark: utilities must respond to the class, not
+   just to prefers-color-scheme. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* --- shadcn/ui design tokens (Tailwind v4, mapped to the Nomu palette) --- */
+:root {
+  --background: #FFF9F6;
+  --foreground: #0F151D;
+  --card: #FFFFFF;
+  --card-foreground: #0F151D;
+  --popover: #FFFFFF;
+  --popover-foreground: #0F151D;
+  --primary: #FF7448;
+  --primary-foreground: #FFFFFF;
+  --secondary: #D3E1FF;
+  --secondary-foreground: #0F151D;
+  --muted: #F7EFE8;
+  --muted-foreground: #6B6259;
+  --accent: #FFC8B7;
+  --accent-foreground: #0F151D;
+  --destructive: #DC2626;
+  --destructive-foreground: #FFFFFF;
+  --border: #F0E5DC;
+  --input: #EADCCF;
+  --ring: #FF7448;
+  --radius: 1rem;
+}
+
+.dark {
+  --background: #0F151D;
+  --foreground: #FBFBFB;
+  --card: #1B232E;
+  --card-foreground: #FBFBFB;
+  --popover: #1B232E;
+  --popover-foreground: #FBFBFB;
+  --primary: #FF7448;
+  --primary-foreground: #FFFFFF;
+  --secondary: #232E3A;
+  --secondary-foreground: #FBFBFB;
+  --muted: #232E3A;
+  --muted-foreground: #A1A1AA;
+  --accent: #232E3A;
+  --accent-foreground: #FBFBFB;
+  --destructive: #EF4444;
+  --destructive-foreground: #FFFFFF;
+  --border: #2A3441;
+  --input: #2E3946;
+  --ring: #FF7448;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* Leaflet map container fix */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  background: #F7EFE8;
+  /* Contain Leaflet's internal high z-indexes (panes/tiles go up to 1000).
+     Without its own stacking context the map escapes above modals/dialogs
+     (z-50) and overlays; z-index 0 keeps every map layer inside the box. */
+  position: relative;
+  z-index: 0;
+}
+
+.dark .leaflet-container {
+  background: #141D28;
+}
+
+.leaflet-control-attribution {
+  font-size: 9px !important;
+}
+
+/* Zoom in/out control (bottom-right) — restyled to match the product UI. */
+.leaflet-control-zoom {
+  border: none !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18) !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+.leaflet-control-zoom a {
+  width: 32px !important;
+  height: 32px !important;
+  line-height: 32px !important;
+  font-size: 18px !important;
+  font-weight: 600;
+  color: #0F151D !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-bottom: 1px solid #F0E5DC !important;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.leaflet-control-zoom a:last-child {
+  border-bottom: none !important;
+}
+.leaflet-control-zoom a:hover {
+  background: #F7EFE8 !important;
+}
+.leaflet-control-zoom a.leaflet-disabled {
+  color: #A1A1AA !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+}
+.dark .leaflet-control-zoom a {
+  color: #FBFBFB !important;
+  background: rgba(27, 35, 46, 0.95) !important;
+  border-color: #2E3946 !important;
+}
+.dark .leaflet-control-zoom a:hover {
+  background: #232E3A !important;
+}
+.dark .leaflet-control-zoom a.leaflet-disabled {
+  color: #52525b !important;
+  background: rgba(27, 35, 46, 0.7) !important;
+}
+
+/* Animated dispatch route line — dashes flow toward the destination. */
+.ft-route-line {
+  stroke-dasharray: 2 14 !important;
+  stroke-linecap: round;
+  animation: ft-route-flow 1.4s linear infinite;
+  filter: drop-shadow(0 0 4px rgba(255, 116, 72, 0.35));
+}
+@keyframes ft-route-flow {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@layer base {
+  :root {
+    --font-outfit: 'Outfit', sans-serif;
+    --font-inter: 'Inter', sans-serif;
+  }
+
+  body {
+    font-family: var(--font-inter);
+    background-color: #FFF9F6;
+    color: #0F151D;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  .dark body,
+  :root.dark body {
+    background-color: #0F151D;
+    color: #FBFBFB;
+  }
+
+  h1, h2, h3, h4, .font-heading {
+    font-family: var(--font-outfit);
+  }
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.material-symbols-filled {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+/* Stitched / Woven divider motif from Design System */
+.stitched-divider {
+  background-image: repeating-linear-gradient(to right, #F0E5DC 0, #F0E5DC 8px, transparent 8px, transparent 16px);
+  background-size: 100% 2px;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 2px;
+  width: 100%;
+}
+
+.dark .stitched-divider {
+  background-image: repeating-linear-gradient(to right, #2A3441 0, #2A3441 8px, transparent 8px, transparent 16px);
+}
+
+.stitched-divider-dashed {
+  background-image: repeating-linear-gradient(to right, #F0E5DC 0, #F0E5DC 4px, transparent 4px, transparent 8px);
+  background-size: 100% 2px;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 2px;
+  width: 100%;
+}
+
+.dark .stitched-divider-dashed {
+  background-image: repeating-linear-gradient(to right, #2A3441 0, #2A3441 4px, transparent 4px, transparent 8px);
+}
+
+/* Emergency & Status Animations */
+@keyframes pulse-urgent {
+  0%, 100% {
+    background-color: rgba(255, 116, 72, 0.12);
+    border-color: rgba(255, 116, 72, 0.6);
+    box-shadow: 0 0 0 4px rgba(255, 116, 72, 0.2);
+  }
+  50% {
+    background-color: rgba(255, 116, 72, 0.24);
+    border-color: rgba(255, 116, 72, 1);
+    box-shadow: 0 0 0 8px rgba(255, 116, 72, 0.35);
+  }
+}
+
+.urgent-pulse {
+  animation: pulse-urgent 1.6s infinite ease-in-out;
+}
+
+@keyframes map-pulse {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+  50% { transform: translate(-50%, -50%) scale(1.6); opacity: 0; }
+  100% { transform: translate(-50%, -50%) scale(1.6); opacity: 0; }
+}
+
+.map-marker-pulse {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  background-color: rgba(255, 116, 72, 0.45);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: map-pulse 2s infinite;
+}
+
+/* Custom scrollbar hiding */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

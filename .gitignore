@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+
+# Build outputs & caches
+.next/
+dist/
+build/
+.turbo/
+*.tsbuildinfo
+expo-env.d.ts
+
+# Environment secrets — DO NOT commit
+.env
+.env.local
+.env.*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment & secrets — never commit real keys
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local tooling (preview helpers, local script copies)
+.freebuff/
+start-dev.ps1
+start-prod.ps1
+
+# Supabase local runtime (config.toml + migrations stay tracked; local artifacts don't)
+supabase/.temp/metadata.json
+
+.vercel
+.env*
